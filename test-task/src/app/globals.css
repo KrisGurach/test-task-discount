@@ -4,24 +4,17 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background-main: #F5F7F7;
+  --color-main-text: #2D3242;
+  --color-text: #687078;
+  --color-grey: #95979F;
+  --color-accent-grey: #D3D6DD;
+  --color-grey-text: #818798;
+  --color-orange: #FD4D35;
+  --color-blue: #2D97F9;
+  --color-card: #01B9C5;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }

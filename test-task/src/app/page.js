@@ -1,101 +1,121 @@
+"use client";
+
 import Image from "next/image";
+import image from "./images/img.png";
+import { useEffect, useState } from "react";
+import Timer from "./components/CountdownTimer";
+import CardContainer from "./components/CardContainer";
+
+import mainApi from "./api/api";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [error, setError] = useState(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  const [isChecked, setIsChecked] = useState(false);
+  const [isTimerExpired, setIsTimerExpired] = useState(false);
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await mainApi.getList();
+        setData(result);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (isPopupOpened) {
+      setFilteredData(data.filter(x => x.isDiscount));
+      return;
+    }
+
+    if (isTimerExpired) {
+      setFilteredData(data.filter(x => !x.isPopular && !x.isDiscount));
+      return;
+    }
+
+    setFilteredData(data.filter(x => x.isPopular));
+
+  }, [data, isTimerExpired, isPopupOpened])
+
+  const handleTimerEnd = () => {
+    setIsTimerExpired(true);
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <>
+      <header>
+        <Timer onTimerEnd={handleTimerEnd} />
+      </header>
+      <main>
+        <h1>Выберите подходящий тарифный план</h1>
+        <div className="flex gap-[79px]">
+          <div className="w-[434px] h-[715px] relative">
             <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={image}
+              alt="Background Image"
+              className="w-[434px] h-[715px]"
+              objectFit="cover"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
+
+          <div className="max-w-[585px]">
+            <div>
+            {filteredData.map((x, index) => (
+              <CardContainer
+                key={index}
+                name={x.name}
+                price={x.price}
+              />
+            ))}
+            </div>
+            <p>
+              Следуя плану на 3 месяца, люди получают в 2 раза лучший результат,
+              чем за 1 месяц
+            </p>
+            <div>
+              {/* Сохранять статус в сессионсторадж */}
+              <input
+                type="checkbox"
+                id="agreement"
+                checked={isChecked}
+                onChange={handleCheckboxChange}
+              />
+              <label htmlFor="agreement">
+                Я соглашаюсь с{" "}
+                <a href="/terms" target="_blank" rel="noopener noreferrer">
+                  Правилами сервиса
+                </a>{" "}
+                и условиями
+                <a href="/offer" target="_blank" rel="noopener noreferrer">
+                  {" "}
+                  Публичной оферты
+                </a>
+                .
+              </label>
+            </div>
+            <button type="button">Купить</button>
+            <p>
+              Нажимая «Купить», Пользователь соглашается на автоматическое
+              списание денежных средств по истечению купленного периода.
+              Дальнейшие списания по тарифам участвующим в акции осуществляются
+              по полной стоимости согласно оферте.
+            </p>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      {/* Здесь будет попап по истечению таймера отдельным компонентом */}
+    </>
   );
 }
