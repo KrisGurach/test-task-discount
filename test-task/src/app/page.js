@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import image from "./images/img.png";
 import { useEffect, useState } from "react";
+
 import Timer from "./components/CountdownTimer";
 import CardContainer from "./components/CardContainer";
 
-import mainApi from "./api/api";
+import image from "./images/img.png";
+
+import mainApi from "./helpers/api";
+import phrases from "./helpers/phrases";
+import discounts from "./helpers/discounts";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -43,7 +47,7 @@ export default function Home() {
 
     setFilteredData(data.filter(x => x.isPopular));
 
-  }, [data, isTimerExpired, isPopupOpened])
+  }, [data, isTimerExpired, isPopupOpened]);
 
   const handleTimerEnd = () => {
     setIsTimerExpired(true);
@@ -77,6 +81,9 @@ export default function Home() {
                 key={index}
                 name={x.name}
                 price={x.price}
+                isPopular={x.isPopular}
+                phrase={phrases[index % phrases.length]}
+                discount={discounts[index % discounts.length]}
               />
             ))}
             </div>
