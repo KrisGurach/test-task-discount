@@ -13,6 +13,7 @@
   --color-orange: #FD4D35;
   --color-blue: #2D97F9;
   --color-card: #01B9C5;
+  --color-bg-card: rgba(1, 185, 197, 0.05);
 }
 
 body {
