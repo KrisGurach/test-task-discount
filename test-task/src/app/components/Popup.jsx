@@ -1,41 +1,59 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import Image from "next/image";
+import close from "../images/close.svg";
 import PopupCardContainer from "./PopupCardContainer";
 
 export default function Popup({ isOpen, onClose, data }) {
-  const popup = useRef(null);
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (popup.current && !popup.current.contains(event.target)) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-      console.log(data)
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isOpen, onClose]);
-
   return (
     <>
       {isOpen && (
-        <div className="" ref={popup} data-testid="popup">
-          <div className="">
-            <p>Горячая скидка</p>
-            <p>Не упусти свой последний шанс</p>
-            <p>Мы знаем, как трудно начать.. Поэтому!</p>
-            <p>Дарим скидку для лёгкого старта 🏃‍♂️</p>
-            <p>Посмотри, что мы для тебя приготовили 🔥</p>
+        <div
+          className="fixed top-0 left-0 w-[100%] h-[100vh] bg-[var(--color-bg)] flex items-center justify-center z-100"
+          onClick={onClose}
+        >
+          <div
+            className="w-[750px] h-[100vh] bg-white relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="absolute top-5 right-5" onClick={onClose}>
+              <Image src={close} alt="Close" className="w-6 h-6" />
+            </button>
+
+            <p className="max-w-[193px] ml-[42px] mb-[30px] px-[10px] py-[5px] bg-[var(--color-card)] text-base text-white leading-5 font-[family-name:var(--font-root-medium)] lowercase">
+              Горящее предложение
+            </p>
+            <div className="flex flex-col items-center">
+              <p className="mb-[30px] text-[var(--color-black)] text-3xl font-bold leading-10 font-[family-name:var(--font-rubik)] uppercase">
+                Не упусти свой{" "}
+                <span className="text-[var(--color-card)]">последний шанс</span>
+              </p>
+              <p className="mb-2 text-[var(--color-black)] text-2xl leading-8 font-[family-name:var(--font-root-medium)]">
+                Мы знаем, как трудно начать..{" "}
+                <span className="font-[family-name:var(--font-root-bold)]">
+                  Поэтому!
+                </span>
+              </p>
+              <p className="mb-10 py-[14px] px-[29px] border border-[var(--color-card)] rounded-[30px] text-2xl text-[var(--color-main-text)] leading-8 font-[family-name:var(--font-root-bold)]">
+                Дарим скидку для{" "}
+                <span className="text-[var(--color-card)]">
+                  лёгкого старта 🏃‍♂️
+                </span>
+              </p>
+            </div>
+            <p className="ml-10 mb-5 text-[var(--color-black)] text-2xl leading-8 font-[family-name:var(--font-root-medium)]">
+              Посмотри, что мы для тебя приготовили 🔥
+            </p>
+
             {data.map((x, index) => (
               <PopupCardContainer key={index} name={x.name} price={x.price} />
             ))}
+            
+            <div className="flex justify-center">
+              <button className="w-[310px] h-[62px] bg-[var(--color-orange)] rounded-[30px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)]">
+                Начать тренироваться
+              </button>
+            </div>
           </div>
         </div>
       )}

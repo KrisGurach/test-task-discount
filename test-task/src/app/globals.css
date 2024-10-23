@@ -13,7 +13,9 @@
   --color-orange: #FD4D35;
   --color-blue: #2D97F9;
   --color-card: #01B9C5;
+  --color-black: #12191D;
   --color-bg-card: rgba(1, 185, 197, 0.05);
+  --color-bg: rgba(0, 0, 0, 0.4);
 }
 
 body {

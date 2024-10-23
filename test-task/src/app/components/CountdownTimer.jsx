@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function Timer({ onTimerEnd }) {
-  const initialTime = 1200;
+  const initialTime = 1;
 
   const minuteForms = ["минута", "минуты", "минут"];
   const secondForms = ["секунда", "секунды", "секунд"];
@@ -51,23 +51,23 @@ export default function Timer({ onTimerEnd }) {
 
   return (
     <div className="flex items-center justify-center">
-      <p className="mr-[15px] py-5 text-[var(--color-main-text)] text-3xl font-bold leading-10">
+      <p className="mr-[15px] py-5 text-[var(--color-main-text)] text-3xl leading-10 font-[family-name:var(--font-root-bold)]">
         Скидка действует:
       </p>
       <div className="flex flex-col items-center justify-center">
-        <p className="text-[var(--color-card)] text-6xl font-normal leading-15">
+        <p className="text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)]">
           {minutes}
         </p>
-        <p className="text-[var(--color-grey-text)] text-base font-bold leading-5">
+        <p className="text-[var(--color-grey-text)] text-base leading-5 font-[family-name:var(--font-root-bold)]">
             {getDeclension(minutes, minuteForms)}{" "}
         </p>
       </div>
-      <span className="mx-3 pb-2 text-[var(--color-card)] text-3xl font-bold opacity-50">:</span>
+      <span className="mx-3 pb-2 text-[var(--color-card)] text-3xl font-[family-name:var(--font-root-bold)] opacity-50">:</span>
       <div className="flex flex-col items-center justify-center">
-        <p className="text-[var(--color-card)] text-6xl font-normal leading-15">
+        <p className="text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)]">
           {seconds}
         </p>
-        <p className="text-[var(--color-grey-text)] text-base font-bold leading-5">
+        <p className="text-[var(--color-grey-text)] text-base leading-5 font-[family-name:var(--font-root-bold)]">
             {getDeclension(seconds, secondForms)}
         </p>
       </div>

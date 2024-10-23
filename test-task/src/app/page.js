@@ -89,7 +89,7 @@ export default function Home() {
         <Timer onTimerEnd={handleTimerEnd} />
       </header>
       <main className="flex flex-col items-center bg-[var(--background-main)]">
-        <h1 className="pt-[27px] pb-[98px] text-[var(--color-main-text)] text-5xl font-bold leading-11 uppercase tracking-1-percent">
+        <h1 className="pt-[27px] pb-[98px] text-[var(--color-main-text)] text-5xl font-bold leading-11 font-[family-name:var(--font-rubik)] uppercase tracking-1-percent">
           Выберите подходящий тарифный план
         </h1>
 
@@ -119,7 +119,7 @@ export default function Home() {
               ))}
             </div>
             
-            <p className="pt-3 pb-[26px] text-[var(--color-main-text)] text-lg font-medium leading-6">
+            <p className="pt-3 pb-[26px] text-[var(--color-main-text)] text-lg leading-6 font-[family-name:var(--font-root-medium)]">
               Следуя плану на 3 месяца, люди получают в 2 раза лучший результат,
               чем за 1 месяц
             </p>
@@ -132,7 +132,7 @@ export default function Home() {
                 class="w-[30px] h-6 text-[var(--color-card)] border-[var(--color-main-text)] rounded-[5px] pointer"
               />
               <label
-                className="pl-3 text-[var(--color-grey-text)] text-base font-normal leading-4"
+                className="pl-3 text-[var(--color-grey-text)] text-base leading-4 font-[family-name:var(--font-root-regular)]"
                 htmlFor="agreement"
               >
                 Я соглашаюсь с{" "}
@@ -149,12 +149,12 @@ export default function Home() {
             </div>
 
             <button 
-              className="mb-[50px] w-[281px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 uppercase" 
+              className="mb-[50px] w-[281px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)] uppercase" 
               type="button">
                 Купить
             </button>
 
-            <p className="pb-[107px] text-[var(--color-grey-text)] text-sm font-normal leading-5">
+            <p className="pb-[107px] text-[var(--color-grey-text)] text-sm font-normal leading-5 font-[family-name:var(--font-root-regular)]">
               Нажимая «Купить», Пользователь соглашается на автоматическое
               списание денежных средств по истечению купленного периода.
               Дальнейшие списания по тарифам участвующим в акции осуществляются
