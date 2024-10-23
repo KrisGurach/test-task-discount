@@ -9,9 +9,10 @@ export default function CardContainer({
   price,
   noDiscountPrice,
   isPopular,
+  isDiscountVisible,
   width,
   row,
-  margin
+  margin,
 }) {
   return (
     <div
@@ -23,12 +24,34 @@ export default function CardContainer({
 
       <div className={`flex ${row}`}>
         <div className={margin}>
-          <p className="m-0 p-0 pt-[21px] h-[75px] text-[var(--color-main-text)] text-[50px] leading-13 font-[family-name:var(--font-root-bold)]">
-            {isPopular ? price : noDiscountPrice}₽
+          <p
+            className={`m-0 p-0 pt-[21px] h-[75px] text-[var(--color-main-text)] text-[50px] leading-13 font-[family-name:var(--font-root-bold)] transition-transform duration-500 
+        ${
+          isDiscountVisible
+            ? "transform scale-0 rotate-[720deg] h-0"
+            : "scale-100 rotate-0"
+        }
+        `}
+          >
+            {price}₽
           </p>
 
           {isPopular && (
-            <p className="pl-[57px] text-2xl text-[var(--color-grey)] leading-7 font-[family-name:var(--font-root-medium)] line-through">
+            <p
+              className={`pl-[57px] text-2xl text-[var(--color-grey)] leading-7 font-[family-name:var(--font-root-medium)] line-through transition-transform duration-500 ${
+                isDiscountVisible
+                ? "transform scale-0 rotate-[720deg] h-0"
+                : "scale-100 rotate-0"
+              }`}
+            >
+              {noDiscountPrice}₽
+            </p>
+          )}
+
+          {!isPopular && (
+            <p
+              className={`m-0 p-0 h-[75px] text-[var(--color-main-text)] text-[50px] leading-13 font-[family-name:var(--font-root-bold)]`}
+            >
               {noDiscountPrice}₽
             </p>
           )}
@@ -48,9 +71,11 @@ export default function CardContainer({
             className="absolute"
           />
           <p className="relative text-lg text-white leading-6 font-[family-name:var(--font-root-medium)] z-10">
-            {`-${Math.trunc(
-              ((noDiscountPrice - price) / noDiscountPrice) * 100
-            )} %`}
+            {`-${
+              Math.round(
+                (((noDiscountPrice - price) / noDiscountPrice) * 100) / 10
+              ) * 10
+            } %`}
           </p>
         </div>
       )}

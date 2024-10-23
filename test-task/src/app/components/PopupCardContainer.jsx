@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import star from "../images/Star.png";
 
 export default function PopupCardContainer({ name, price, noDiscountPrice }) {
   const [isChecked, setIsChecked] = useState(false);
@@ -17,26 +19,40 @@ export default function PopupCardContainer({ name, price, noDiscountPrice }) {
             <span className="mr-[58px] text-[var(--color-main-text)] text-[26px] leading-7 font-[family-name:var(--font-neue-cyr)] uppercase">
               {name}
             </span>
-              <input
-                checked
-                type="radio"
-                value=""
-                name="bordered-radio"
-                class="w-[22px] h-[22px] text-[var(--color-card)] bg-[var(--color-radio-but)] border-[var(--color-radio-but)]"
-              />
+            <input
+              checked
+              type="radio"
+              value=""
+              name="bordered-radio"
+              class="w-[22px] h-[22px] text-[var(--color-card)] bg-[var(--color-radio-but)] border-[var(--color-radio-but)]"
+            />
           </label>
-          <p className="relative min-w-[48px] max-w-[62px] mt-3 mb-4 text-xl text-[var(--color-grey)] leading-7 font-[family-name:var(--font-root-medium)]">
-  <span className="absolute left-0 w-full h-0.5 bg-[var(--color-orange)] transform -rotate-12 top-[50%]"></span>
-  <span className="absolute left-0 w-full h-0.5 bg-[var(--color-orange)] transform rotate-12 top-[50%]"></span>
-  {noDiscountPrice}₽
-</p>
 
+          <p className="relative min-w-[48px] max-w-[62px] mt-3 mb-4 text-xl text-[var(--color-grey)] leading-7 font-[family-name:var(--font-root-medium)]">
+            <span className="absolute left-0 w-full h-0.5 bg-[var(--color-orange)] transform -rotate-12 top-[50%]"></span>
+            <span className="absolute left-0 w-full h-0.5 bg-[var(--color-orange)] transform rotate-12 top-[50%]"></span>
+            {noDiscountPrice}₽
+          </p>
 
           <hr className="border-[1px] border-[var(--color-line)] w-[134px] ml-[14px]" />
 
-          <p className="text-[var(--color-main-text)] text-[46px] leading-12 font-[family-name:var(--font-root-bold)]">
+          <p className="mt-2 h-[51px] text-[var(--color-main-text)] text-[46px] leading-12 font-[family-name:var(--font-root-bold)]">
             {price}₽
           </p>
+
+          <div className="absolute top-[115px] right-[4px] w-[50px] h-[50px] flex items-center justify-center">
+            <Image
+              src={star}
+              alt="предоставляется скидка"
+              objectFit="cover"
+              className="absolute"
+            />
+            {/* Здесь формула считает верно, и значение скидки для 3-х месяцев не совпадает с макетом */}
+            <p className="relative text-sm text-white leading-4 font-[family-name:var(--font-root-medium)] z-10">
+              {`-${Math.round(((noDiscountPrice - price) / noDiscountPrice) * 100 / 10) * 10} %`}
+            </p>
+          </div>
+          
         </div>
       </div>
     </>

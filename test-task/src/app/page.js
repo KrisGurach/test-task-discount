@@ -10,6 +10,7 @@ import Popup from "./components/Popup";
 import image from "./images/img.png";
 
 import mainApi from "./helpers/api";
+import styles from './animation.module.css';
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -18,6 +19,7 @@ export default function Home() {
 
   const [isChecked, setIsChecked] = useState(false);
   const [isTimerExpired, setIsTimerExpired] = useState(false);
+  const [isDiscountVisible, setDiscountVisible] = useState(false);
   const [isPopupOpened, setIsPopupOpened] = useState(false);
 
   useEffect(() => {
@@ -69,6 +71,7 @@ export default function Home() {
 
   const handleTimerEnd = () => {
     setIsTimerExpired(true);
+    setDiscountVisible(true);
   };
 
   const handleCheckboxChange = () => {
@@ -113,6 +116,7 @@ export default function Home() {
                   price={x.price}
                   noDiscountPrice={x.noDiscountPrice}
                   isPopular={x.isPopular}
+                  isDiscountVisible={isDiscountVisible}
                   width={index === 3 ? 'flex flex-row w-[585px] max-h-[125px] w-[100%] mt-7' : ''}
                   row={index === 3 ? 'flex-row text-[var(--color-main-text)]' : 'flex-col items-center'}
                   margin={index === 3 ? 'ml-5 mr-[55px]' : ''}
@@ -150,7 +154,7 @@ export default function Home() {
             </div>
 
             <button 
-              className="mb-[50px] w-[281px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)] uppercase" 
+              className={`mb-[50px] w-[281px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)] uppercase ${styles.blink}`} 
               type="button">
                 Купить
             </button>

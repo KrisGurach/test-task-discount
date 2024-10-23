@@ -1,0 +1,37 @@
+/* Эффект мигания для кнопки "Купить" я сделала интиллигентным и ненавязчивым, чтобы не вызывало ассоциации с телемаркетами */
+.blink {
+    animation: blink-animation 2s linear infinite;
+}
+
+@keyframes blink-animation {
+
+    0%,
+    100% {
+        background-color: #FD4D35;
+    }
+
+    50% {
+        background-color: #fd4c35a6;
+    }
+}
+
+/* Анимация для таймера*/
+.flashing {
+    animation: flash-animation 1s infinite;
+}
+
+@keyframes flash-animation {
+    0% {
+        opacity: 1;
+        color: #FD4D35
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        color: #FD4D35
+    }
+}

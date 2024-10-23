@@ -1,19 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import styles from "../animation.module.css";
 
 export default function Timer({ onTimerEnd }) {
-  const initialTime = 1;
+  const initialTime = 4;
 
   const minuteForms = ["минута", "минуты", "минут"];
   const secondForms = ["секунда", "секунды", "секунд"];
 
-  // Я разместила оставшееся время таймера в sessionStorage, так как предполагаю показывать скидку при новом открытии вкладки, 
-  // в зависимости от целей можно сохранять и в localStorage
   const [timeLeft, setTimeLeft] = useState(() => {
     const savedTime = sessionStorage.getItem("timeLeft");
     return savedTime ? Number(savedTime) : initialTime;
   });
+
+  const [isFlashing, setIsFlashing] = useState(false);
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -27,9 +28,19 @@ export default function Timer({ onTimerEnd }) {
         sessionStorage.setItem("timeLeft", newTime);
         return newTime;
       });
+
+      if (timeLeft <= 31) {
+        setIsFlashing(true);
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
+  }, [timeLeft]);
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setIsFlashing(false);
+    }
   }, [timeLeft]);
 
   const getDeclension = (value, forms) => {
@@ -55,20 +66,20 @@ export default function Timer({ onTimerEnd }) {
         Скидка действует:
       </p>
       <div className="flex flex-col items-center justify-center">
-        <p className="text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)]">
+        <p className={`text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
           {minutes}
         </p>
         <p className="text-[var(--color-grey-text)] text-base leading-5 font-[family-name:var(--font-root-bold)]">
-            {getDeclension(minutes, minuteForms)}{" "}
+          {getDeclension(minutes, minuteForms)}{" "}
         </p>
       </div>
-      <span className="mx-3 pb-2 text-[var(--color-card)] text-3xl font-[family-name:var(--font-root-bold)] opacity-50">:</span>
+      <span className={`mx-3 pb-2 text-[var(--color-card)] text-3xl font-[family-name:var(--font-root-bold)] opacity-50 ${isFlashing ? styles.flashing : ""}`}>:</span>
       <div className="flex flex-col items-center justify-center">
-        <p className="text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)]">
+        <p className={`text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
           {seconds}
         </p>
         <p className="text-[var(--color-grey-text)] text-base leading-5 font-[family-name:var(--font-root-bold)]">
-            {getDeclension(seconds, secondForms)}
+          {getDeclension(seconds, secondForms)}
         </p>
       </div>
     </div>
