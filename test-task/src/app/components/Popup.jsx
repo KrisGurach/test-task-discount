@@ -13,7 +13,7 @@ export default function Popup({ isOpen, onClose, data }) {
           onClick={onClose}
         >
           <div
-            className="w-[750px] h-[100vh] bg-white relative"
+            className="w-[750px] h-[100vh] max-h-[658px] bg-white relative"
             onClick={(e) => e.stopPropagation()}
           >
             <button className="absolute top-5 right-5" onClick={onClose}>
@@ -45,10 +45,16 @@ export default function Popup({ isOpen, onClose, data }) {
               Посмотри, что мы для тебя приготовили 🔥
             </p>
 
-            {data.map((x, index) => (
-              <PopupCardContainer key={index} name={x.name} price={x.price} />
-            ))}
-            
+            <div className="ml-10 mb-10 flex gap-5">
+              {data.map((x, index) => (
+                <PopupCardContainer 
+                  key={index} 
+                  name={x.name} 
+                  price={x.price} 
+                  noDiscountPrice={x.noDiscountPrice} />
+              ))}
+            </div>
+
             <div className="flex justify-center">
               <button className="w-[310px] h-[62px] bg-[var(--color-orange)] rounded-[30px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)]">
                 Начать тренироваться

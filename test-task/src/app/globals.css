@@ -6,6 +6,7 @@
   --background: #ffffff;
   --background-main: #F5F7F7;
   --color-main-text: #2D3242;
+  --color-add-text: #2F4353;
   --color-text: #687078;
   --color-grey: #95979F;
   --color-accent-grey: #D3D6DD;
@@ -16,6 +17,8 @@
   --color-black: #12191D;
   --color-bg-card: rgba(1, 185, 197, 0.05);
   --color-bg: rgba(0, 0, 0, 0.4);
+  --color-radio-but: #555965;
+  --color-line: #E7EAF1;
 }
 
 body {

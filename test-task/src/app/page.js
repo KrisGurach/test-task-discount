@@ -113,8 +113,9 @@ export default function Home() {
                   price={x.price}
                   noDiscountPrice={x.noDiscountPrice}
                   isPopular={x.isPopular}
-                  className={index === 3 ? 'flex flex-row w-[585px] h-[125px] w-[100%] mt-7' : ''}
-                  classNameRow={index === 3 ? 'flex-row' : 'flex-col items-center'}
+                  width={index === 3 ? 'flex flex-row w-[585px] max-h-[125px] w-[100%] mt-7' : ''}
+                  row={index === 3 ? 'flex-row text-[var(--color-main-text)]' : 'flex-col items-center'}
+                  margin={index === 3 ? 'ml-5 mr-[55px]' : ''}
                 />
               ))}
             </div>
