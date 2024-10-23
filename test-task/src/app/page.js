@@ -15,6 +15,8 @@ import styles from './animation.module.css';
 export default function Home() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [popupData, setPopupData] = useState([]);
+  
   const [error, setError] = useState(null);
 
   const [isChecked, setIsChecked] = useState(false);
@@ -36,17 +38,39 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    let updatedData;
+    const updatedData = isTimerExpired
+      ? data.filter((x) => !x.isPopular && !x.isDiscount)
+      : data.filter((x) => x.isPopular);
+  
+    const noDiscountData = calculateNoDiscountData(updatedData, data);
+    
+    setFilteredData(noDiscountData);
+  }, [data, isTimerExpired]);
+  
+  useEffect(() => {
+    if (!isPopupOpened) return;
+  
+    const updatedPopupData = data.filter((x) => x.isDiscount);
+    const noDiscountData = calculateNoDiscountData(updatedPopupData, data);
+    
+    setPopupData(noDiscountData);
+  }, [isPopupOpened, data]);
 
-    if (isPopupOpened) {
-      updatedData = data.filter((x) => x.isDiscount);
-    } else if (isTimerExpired) {
-      updatedData = data.filter((x) => !x.isPopular && !x.isDiscount);
-    } else {
-      updatedData = data.filter((x) => x.isPopular);
+  useEffect(() => {
+    const savedCheckboxState = sessionStorage.getItem("isChecked");
+    if (savedCheckboxState !== null) {
+      setIsChecked(JSON.parse(savedCheckboxState));
     }
+  }, []);
 
-    const noDiscountData = updatedData.map((d) => {
+  useEffect(() => {
+    setTimeout(() => {
+      setIsPopupOpened(isTimerExpired);
+    }, 5000);
+  }, [isTimerExpired]);
+
+  const calculateNoDiscountData = (updatedData, data) => {
+    return updatedData.map((d) => {
       const noDiscountItem = data.find(
         (x) => x.name === d.name && !x.isPopular && !x.isDiscount
       );
@@ -55,15 +79,7 @@ export default function Home() {
         noDiscountPrice: noDiscountItem ? noDiscountItem.price : null,
       };
     });
-
-    setFilteredData(noDiscountData);
-  }, [data, isTimerExpired, isPopupOpened]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsPopupOpened(isTimerExpired);
-    }, 5000);
-  }, [isTimerExpired]);
+  };
 
   const togglePopup = useCallback(() => {
     setIsPopupOpened((prev) => !prev);
@@ -78,13 +94,6 @@ export default function Home() {
     setIsChecked(!isChecked);
     sessionStorage.setItem("isChecked", !isChecked);
   };
-
-  useEffect(() => {
-    const savedCheckboxState = sessionStorage.getItem("isChecked");
-    if (savedCheckboxState !== null) {
-      setIsChecked(JSON.parse(savedCheckboxState));
-    }
-  }, []);
 
   return (
     <>
@@ -173,7 +182,7 @@ export default function Home() {
         <Popup
           isOpen={isPopupOpened}
           onClose={togglePopup}
-          data={filteredData}
+          data={popupData}
         />
       )}
     </>

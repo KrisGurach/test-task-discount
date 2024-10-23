@@ -25,7 +25,7 @@ export default function CardContainer({
       <div className={`flex ${row}`}>
         <div className={margin}>
           <p
-            className={`m-0 p-0 pt-[21px] h-[75px] text-[var(--color-main-text)] text-[50px] leading-13 font-[family-name:var(--font-root-bold)] transition-transform duration-500 
+            className={`m-0 p-0 pt-[21px] h-[75px] text-[var(--color-main-text)] text-[50px] leading-13 font-[family-name:var(--font-root-bold)] transition-transform duration-1000 
         ${
           isDiscountVisible
             ? "transform scale-0 rotate-[720deg] h-0"
@@ -38,7 +38,7 @@ export default function CardContainer({
 
           {isPopular && (
             <p
-              className={`pl-[57px] text-2xl text-[var(--color-grey)] leading-7 font-[family-name:var(--font-root-medium)] line-through transition-transform duration-500 ${
+              className={`pl-[57px] text-2xl text-[var(--color-grey)] leading-7 font-[family-name:var(--font-root-medium)] line-through transition-transform duration-1000 ${
                 isDiscountVisible
                 ? "transform scale-0 rotate-[720deg] h-0"
                 : "scale-100 rotate-0"

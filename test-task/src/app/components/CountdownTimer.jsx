@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "../animation.module.css";
 
 export default function Timer({ onTimerEnd }) {
-  const initialTime = 4;
+  const initialTime = 120;
 
   const minuteForms = ["минута", "минуты", "минут"];
   const secondForms = ["секунда", "секунды", "секунд"];
