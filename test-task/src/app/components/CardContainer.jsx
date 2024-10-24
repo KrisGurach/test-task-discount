@@ -24,6 +24,7 @@ export default function CardContainer({
   return (
     <button
       onClick={onSelect}
+      type="button"
       className={`relative border-2 border-[var(--color-accent-grey)] rounded-[20px] bg-[var(--background)] w-[187px] h-[261px] transition-all duration-200 hover:bg-[var(--color-bg-card)] hover:border-[var(--color-card)] 
         ${isLast ? 'flex flex-row w-[585px] max-h-[125px] w-[100%] mt-7' : ''}
         ${isActive ? "bg-[var(--color-bg-card)] border-[var(--color-card)]" : ""}`}

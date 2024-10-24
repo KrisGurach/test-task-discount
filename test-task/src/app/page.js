@@ -67,6 +67,7 @@ export default function Home() {
     }
   }, []);
 
+  // Попап открывается чуть позже, чтобы пользователь посмотрел как улетает скидка и успел расстроится
   useEffect(() => {
     setTimeout(() => {
       setIsPopupOpened(isTimerExpired);
@@ -111,12 +112,12 @@ export default function Home() {
         <Timer onTimerEnd={handleTimerEnd} />
       </header>
       <main className="flex flex-col items-center bg-[var(--background-main)]">
-        <h1 className="pt-[27px] pb-[98px] text-[var(--color-main-text)] text-5xl font-bold leading-11 font-[family-name:var(--font-rubik)] uppercase tracking-1-percent">
+        <h1 className="pt-[27px] lg:pb-[98px] md:pb-[30px] text-[var(--color-main-text)] xl:text-5xl lg:text-4xl md:text-3xl font-bold leading-11 font-[family-name:var(--font-rubik)] uppercase tracking-1-percent">
           Выберите подходящий тарифный план
         </h1>
 
-        <div className="flex gap-[79px]">
-          <div className="w-[434px] h-[715px] relative">
+        <div className="flex gap-[79px] lg:gap-[35px] lg:flex-row md:flex-col lg:items-start md:items-center">
+          <div className="xl:w-[434px] md:w-[290px] xl:h-[715px] md:h-[477px] relative">
             <Image
               src={image}
               alt="красивый мужчина в отличной форме"
@@ -124,7 +125,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="max-w-[585px]">
+          <div className="max-w-[585px] lg:block md:flex md:flex-col md:items-center">
             {data ? (
               <div className="flex flex-wrap gap-3">
                 {filteredData.map((item, index) => (
