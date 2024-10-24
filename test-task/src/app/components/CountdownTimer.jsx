@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "../animation.module.css";
 
 export default function Timer({ onTimerEnd }) {
-  const initialTime = 120;
+  const initialTime = 1200;
 
   const minuteForms = ["минута", "минуты", "минут"];
   const secondForms = ["секунда", "секунды", "секунд"];
@@ -62,23 +62,23 @@ export default function Timer({ onTimerEnd }) {
 
   return (
     <div className="flex items-center justify-center">
-      <p className="mr-[15px] py-5 text-[var(--color-main-text)] text-3xl leading-10 font-[family-name:var(--font-root-bold)]">
+      <p className="mr-[15px] sm:mr-[10px] py-5 sm:py-2 text-[var(--color-main-text)] text-3xl sm:text-base leading-10 font-[family-name:var(--font-root-bold)]">
         Скидка действует:
       </p>
       <div className="flex flex-col items-center justify-center">
-        <p className={`text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
+        <p className={`text-[var(--color-card)] text-6xl sm:text-[40px] leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
           {minutes}
         </p>
-        <p className="text-[var(--color-grey-text)] text-base leading-5 font-[family-name:var(--font-root-bold)]">
+        <p className="text-[var(--color-grey-text)] text-base sm:text-sm leading-5 font-[family-name:var(--font-root-bold)]">
           {getDeclension(minutes, minuteForms)}{" "}
         </p>
       </div>
-      <span className={`mx-3 pb-2 text-[var(--color-card)] text-3xl font-[family-name:var(--font-root-bold)] opacity-50 ${isFlashing ? styles.flashing : ""}`}>:</span>
+      <span className={`mx-3 sm:mx-1 pb-2 text-[var(--color-card)] text-3xl sm:text-xl font-[family-name:var(--font-root-bold)] opacity-50 ${isFlashing ? styles.flashing : ""}`}>:</span>
       <div className="flex flex-col items-center justify-center">
-        <p className={`text-[var(--color-card)] text-6xl leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
+        <p className={`text-[var(--color-card)] text-6xl sm:text-[40px] leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
           {seconds}
         </p>
-        <p className="text-[var(--color-grey-text)] text-base leading-5 font-[family-name:var(--font-root-bold)]">
+        <p className="text-[var(--color-grey-text)] text-base sm:text-sm leading-5 font-[family-name:var(--font-root-bold)]">
           {getDeclension(seconds, secondForms)}
         </p>
       </div>

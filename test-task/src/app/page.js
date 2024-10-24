@@ -112,12 +112,12 @@ export default function Home() {
         <Timer onTimerEnd={handleTimerEnd} />
       </header>
       <main className="flex flex-col items-center bg-[var(--background-main)]">
-        <h1 className="pt-[27px] lg:pb-[98px] md:pb-[30px] text-[var(--color-main-text)] xl:text-5xl lg:text-4xl md:text-3xl font-bold leading-11 font-[family-name:var(--font-rubik)] uppercase tracking-1-percent">
+        <h1 className="pt-[27px] lg:pb-[98px] md:pb-[30px] text-[var(--color-main-text)] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-bold leading-11 font-[family-name:var(--font-rubik)] uppercase tracking-1-percent">
           Выберите подходящий тарифный план
         </h1>
 
-        <div className="flex gap-[79px] lg:gap-[35px] lg:flex-row md:flex-col lg:items-start md:items-center">
-          <div className="xl:w-[434px] md:w-[290px] xl:h-[715px] md:h-[477px] relative">
+        <div className="flex gap-[79px] lg:gap-[35px] lg:flex-row md:flex-col lg:items-start md:items-center sm:flex-col sm:items-center sm:gap-[20px]">
+          <div className="xl:w-[434px] md:w-[290px] sm:w-[277px] xl:h-[715px] md:h-[477px] sm:h-[441px] relative">
             <Image
               src={image}
               alt="красивый мужчина в отличной форме"
@@ -127,7 +127,7 @@ export default function Home() {
 
           <div className="max-w-[585px] lg:block md:flex md:flex-col md:items-center">
             {data ? (
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 sm:gap-[10px] sm:flex sm:flex-col sm:items-center">
                 {filteredData.map((item, index) => (
                   <CardContainer
                     key={index}
@@ -147,12 +147,12 @@ export default function Home() {
               <p className="error-message">Ошибка получения данных: {error}</p>
             )}
 
-            <p className="pt-3 pb-[26px] text-[var(--color-main-text)] text-lg leading-6 font-[family-name:var(--font-root-medium)]">
+            <p className="sm:max-w-[284px] pt-3 pb-[26px] text-[var(--color-main-text)] text-lg sm:text-sm leading-6 font-[family-name:var(--font-root-medium)]">
               Следуя плану на 3 месяца, люди получают в 2 раза лучший результат,
               чем за 1 месяц
             </p>
 
-            <div class="mb-[50px] py-[6px] max-w-[454px] flex items-center">
+            <div class="mb-[50px] sm:mb-[22px] py-[6px] max-w-[454px] sm:max-w-[315px] flex items-center">
               <input
                 id="link-checkbox"
                 type="checkbox"
@@ -189,13 +189,13 @@ export default function Home() {
             </div>
 
             <button
-              className={`mb-[50px] w-[281px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)] uppercase ${styles.blink}`}
+              className={`mb-[50px] sm:mb-5 w-[281px] sm:w-[335px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)] uppercase ${styles.blink}`}
               type="button"
             >
               Купить
             </button>
 
-            <p className="pb-[107px] text-[var(--color-grey-text)] text-sm font-normal leading-5 font-[family-name:var(--font-root-regular)]">
+            <p className="sm:hidden sm:h-0 pb-[107px] text-[var(--color-grey-text)] text-sm font-normal leading-5 font-[family-name:var(--font-root-regular)]">
               Нажимая «Купить», Пользователь соглашается на автоматическое
               списание денежных средств по истечению купленного периода.
               Дальнейшие списания по тарифам участвующим в акции осуществляются

@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'sm': {'min': '360px', 'max': '767px'},
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -15,3 +18,4 @@ module.exports = {
   },
   plugins: [],
 };
+
