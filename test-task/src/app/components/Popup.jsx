@@ -31,17 +31,20 @@ export default function Popup({ isOpen, onClose, data }) {
           <p className="max-w-[193px] ml-[42px] sm:ml-0 mb-[30px] sm:mb-[22px] px-[10px] py-[5px] bg-[var(--color-card)] text-base text-white leading-5 font-[family-name:var(--font-root-medium)] lowercase">
             Горящее предложение
           </p>
+          
           <div className="flex flex-col items-center">
             <p className="mb-[30px] sm:mb-[22px] sm:ml-[45px] text-[var(--color-black)] text-3xl sm:text-2xl font-bold leading-10 font-[family-name:var(--font-rubik)] uppercase">
               Не упусти свой{" "}
               <span className="text-[var(--color-card)]">последний шанс</span>
             </p>
-            <p className="mb-2 text-[var(--color-black)] text-2xl sm:text-[15px] leading-8 font-[family-name:var(--font-root-medium)]">
+
+            <p className="mb-2 sm:h-[19px] text-[var(--color-black)] text-2xl sm:text-[15px] leading-8 font-[family-name:var(--font-root-medium)]">
               Мы знаем, как трудно начать..{" "}
               <span className="font-[family-name:var(--font-root-bold)]">
                 Поэтому!
               </span>
             </p>
+
             <p className="mb-10 sm:mb-[26px] py-[14px] sm:py-[7px] px-[29px] sm:px-[22px] border border-[var(--color-card)] rounded-[30px] text-2xl sm:text-[15px] text-[var(--color-main-text)] leading-8 font-[family-name:var(--font-root-bold)]">
               Дарим скидку для{" "}
               <span className="text-[var(--color-card)]">
@@ -49,7 +52,8 @@ export default function Popup({ isOpen, onClose, data }) {
               </span>
             </p>
           </div>
-          <p className="ml-10 sm:ml-5 mb-5 sm:mb-[14px] text-[var(--color-black)] text-2xl sm:text-[15px] leading-8 font-[family-name:var(--font-root-medium)]">
+
+          <p className="ml-10 sm:ml-5 mb-5 sm:mb-[8px] sm:h-[19px] text-[var(--color-black)] text-2xl sm:text-[15px] leading-8 font-[family-name:var(--font-root-medium)]">
             Посмотри, что мы для тебя приготовили 🔥
           </p>
 

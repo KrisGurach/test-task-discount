@@ -15,11 +15,13 @@ export default function PopupCardContainer({ name, price, noDiscountPrice, isSel
       <div className={`relative border-2 border-[var(--color-accent-grey)] rounded-[20px] bg-[var(--background)] w-[210px] sm:w-[295px] h-[197px] sm:h-[133px] 
         transition-all duration-200 hover:bg-[var(--color-bg-card)] hover:border-[var(--color-card)]
         ${isSelected ? "bg-[var(--color-bg-card)] border-[var(--color-card)]" : "" }`}>
+
         <div className="ml-[26px] mt-[26px]">
           <label htmlFor={`radio-${name}`}>
-            <span className="mr-[58px] sm:mr-[160px] text-[var(--color-main-text)] text-[26px] leading-7 font-[family-name:var(--font-neue-cyr)] uppercase">
+            <span className="mr-[58px] sm:mr-0 text-[var(--color-main-text)] text-[26px] leading-7 font-[family-name:var(--font-neue-cyr)] uppercase">
               {name}
             </span>
+
             <input
               id={`radio-${name}`}
               checked={isSelected}
@@ -28,7 +30,7 @@ export default function PopupCardContainer({ name, price, noDiscountPrice, isSel
               value={name}
               aria-label={`Выбрать тариф ${name}`}
               name="bordered-radio"
-              class="w-[22px] h-[22px] text-[var(--color-card)] bg-[var(--color-radio-but)] border-[var(--color-radio-but)]"
+              className="w-[22px] h-[22px] border-[var(--color-radio-but)] checked:text-[var(--color-card)] checked:border-[var(--color-card)] sm:absolute sm:top-6 sm:left-[255px]"
             />
           </label>
 
@@ -45,7 +47,7 @@ export default function PopupCardContainer({ name, price, noDiscountPrice, isSel
             {price}₽
           </p>
 
-          <div className="absolute top-[115px] sm:top-[60px] right-[4px] sm:right-[100px] w-[50px] h-[50px] flex items-center justify-center">
+          <div className="absolute top-[115px] sm:top-[60px] right-[4px] sm:right-[90px] w-[50px] h-[50px] flex items-center justify-center">
             <Image
               src={star}
               alt="предоставляется скидка"

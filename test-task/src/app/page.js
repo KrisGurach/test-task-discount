@@ -152,13 +152,13 @@ export default function Home() {
               чем за 1 месяц
             </p>
 
-            <div class="mb-[50px] sm:mb-[22px] py-[6px] max-w-[454px] sm:max-w-[315px] flex items-center">
+            <div className="mb-[50px] sm:mb-[22px] py-[6px] max-w-[454px] sm:max-w-[315px] flex items-center">
               <input
                 id="link-checkbox"
                 type="checkbox"
                 value=""
                 checked={isChecked}
-                class="w-[30px] h-6 text-[var(--color-card)] border-[var(--color-main-text)] rounded-[5px] pointer"
+                className="w-[24px] h-[24px] text-[var(--color-card)] border-[var(--color-main-text)] checked:text-[var(--color-card)] checked:border-[var(--color-card)] rounded-[5px] pointer"
                 onClick={handleCheckboxChange}
               />
               <label
