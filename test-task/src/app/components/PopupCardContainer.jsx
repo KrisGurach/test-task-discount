@@ -1,28 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 import Image from "next/image";
 import star from "../images/Star.png";
 
-export default function PopupCardContainer({ name, price, noDiscountPrice }) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+export default function PopupCardContainer({ name, price, noDiscountPrice, isSelected, onSelect }) {
+  {/* Здесь формула считает верно, и значение скидки для 3-х месяцев не совпадает с макетом */}
+  const discount = useMemo(() => {
+    return Math.round((((noDiscountPrice - price) / noDiscountPrice) * 100) / 10) * 10;
+  }, [noDiscountPrice, price]);
 
   return (
     <>
-      <div className="relative border-2 border-[var(--color-accent-grey)] rounded-[20px] bg-[var(--background)] w-[210px] h-[197px] transition-all duration-200 hover:bg-[var(--color-bg-card)] hover:border-[var(--color-card)]">
+      <div className={`relative border-2 border-[var(--color-accent-grey)] rounded-[20px] bg-[var(--background)] w-[210px] h-[197px] 
+        transition-all duration-200 hover:bg-[var(--color-bg-card)] hover:border-[var(--color-card)]
+        ${isSelected ? "bg-[var(--color-bg-card)] border-[var(--color-card)]" : "" }`}>
         <div className="ml-[26px] mt-[26px]">
-          <label>
+          <label htmlFor={`radio-${name}`}>
             <span className="mr-[58px] text-[var(--color-main-text)] text-[26px] leading-7 font-[family-name:var(--font-neue-cyr)] uppercase">
               {name}
             </span>
             <input
-              checked
+              id={`radio-${name}`}
+              checked={isSelected}
+              onChange={onSelect}
               type="radio"
-              value=""
+              value={name}
+              aria-label={`Выбрать тариф ${name}`}
               name="bordered-radio"
               class="w-[22px] h-[22px] text-[var(--color-card)] bg-[var(--color-radio-but)] border-[var(--color-radio-but)]"
             />
@@ -47,9 +51,8 @@ export default function PopupCardContainer({ name, price, noDiscountPrice }) {
               objectFit="cover"
               className="absolute"
             />
-            {/* Здесь формула считает верно, и значение скидки для 3-х месяцев не совпадает с макетом */}
             <p className="relative text-sm text-white leading-4 font-[family-name:var(--font-root-medium)] z-10">
-              {`-${Math.round(((noDiscountPrice - price) / noDiscountPrice) * 100 / 10) * 10} %`}
+              {`-${discount} %`}
             </p>
           </div>
           

@@ -16,13 +16,15 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [popupData, setPopupData] = useState([]);
-  
+
   const [error, setError] = useState(null);
 
   const [isChecked, setIsChecked] = useState(false);
   const [isTimerExpired, setIsTimerExpired] = useState(false);
   const [isDiscountVisible, setDiscountVisible] = useState(false);
   const [isPopupOpened, setIsPopupOpened] = useState(false);
+
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,12 +39,14 @@ export default function Home() {
     fetchData();
   }, []);
 
+  // Массив для попапа и для основной страницы разведены по разным useEffect, 
+  // чтобы при открытии попапа с 3-мя элементами массив на основной странице не перестраивался с 4-х на 3 элемента
   useEffect(() => {
     const updatedData = isTimerExpired
       ? data.filter((x) => !x.isPopular && !x.isDiscount)
       : data.filter((x) => x.isPopular);
   
-    const noDiscountData = calculateNoDiscountData(updatedData, data);
+    const noDiscountData = getNoDiscountData(updatedData, data);
     
     setFilteredData(noDiscountData);
   }, [data, isTimerExpired]);
@@ -51,7 +55,7 @@ export default function Home() {
     if (!isPopupOpened) return;
   
     const updatedPopupData = data.filter((x) => x.isDiscount);
-    const noDiscountData = calculateNoDiscountData(updatedPopupData, data);
+    const noDiscountData = getNoDiscountData(updatedPopupData, data);
     
     setPopupData(noDiscountData);
   }, [isPopupOpened, data]);
@@ -69,7 +73,7 @@ export default function Home() {
     }, 5000);
   }, [isTimerExpired]);
 
-  const calculateNoDiscountData = (updatedData, data) => {
+  const getNoDiscountData = (updatedData, data) => {
     return updatedData.map((d) => {
       const noDiscountItem = data.find(
         (x) => x.name === d.name && !x.isPopular && !x.isDiscount
@@ -90,9 +94,15 @@ export default function Home() {
     setDiscountVisible(true);
   };
 
+  // Я решила, если пользователь нажал на галочку, то складывать ее состояние на период открытия страницы
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-    sessionStorage.setItem("isChecked", !isChecked);
+    const newCheckedState = !isChecked;
+    setIsChecked(newCheckedState);
+    sessionStorage.setItem("isChecked", JSON.stringify(newCheckedState));
+  };
+
+  const handleSelect = (index) => {
+    setSelectedIndex(index);
   };
 
   return (
@@ -109,30 +119,33 @@ export default function Home() {
           <div className="w-[434px] h-[715px] relative">
             <Image
               src={image}
-              alt="Background Image"
-              className="w-[434px] h-[715px]"
+              alt="красивый мужчина в отличной форме"
               objectFit="cover"
             />
           </div>
 
           <div className="max-w-[585px]">
-            <div className="flex flex-wrap gap-3">
-              {filteredData.map((x, index) => (
-                <CardContainer
-                  key={index}
-                  index={index}
-                  name={x.name}
-                  price={x.price}
-                  noDiscountPrice={x.noDiscountPrice}
-                  isPopular={x.isPopular}
-                  isDiscountVisible={isDiscountVisible}
-                  width={index === 3 ? 'flex flex-row w-[585px] max-h-[125px] w-[100%] mt-7' : ''}
-                  row={index === 3 ? 'flex-row text-[var(--color-main-text)]' : 'flex-col items-center'}
-                  margin={index === 3 ? 'ml-5 mr-[55px]' : ''}
-                />
-              ))}
-            </div>
-            
+            {data ? (
+              <div className="flex flex-wrap gap-3">
+                {filteredData.map((item, index) => (
+                  <CardContainer
+                    key={index}
+                    index={index}
+                    name={item.name}
+                    price={item.price}
+                    noDiscountPrice={item.noDiscountPrice}
+                    isPopular={item.isPopular}
+                    isDiscountVisible={isDiscountVisible}
+                    isLast={index === filteredData.length - 1}
+                    isActive={selectedIndex === index}
+                    onSelect={() => handleSelect(index)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="error-message">Ошибка получения данных: {error}</p>
+            )}
+
             <p className="pt-3 pb-[26px] text-[var(--color-main-text)] text-lg leading-6 font-[family-name:var(--font-root-medium)]">
               Следуя плану на 3 месяца, люди получают в 2 раза лучший результат,
               чем за 1 месяц
@@ -143,18 +156,30 @@ export default function Home() {
                 id="link-checkbox"
                 type="checkbox"
                 value=""
+                checked={isChecked}
                 class="w-[30px] h-6 text-[var(--color-card)] border-[var(--color-main-text)] rounded-[5px] pointer"
+                onClick={handleCheckboxChange}
               />
               <label
                 className="pl-3 text-[var(--color-grey-text)] text-base leading-4 font-[family-name:var(--font-root-regular)]"
                 htmlFor="agreement"
               >
                 Я соглашаюсь с{" "}
-                <a className="text-[var(--color-blue)]" href="/terms" target="_blank" rel="noopener noreferrer">
+                <a
+                  className="text-[var(--color-blue)]"
+                  href="/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Правилами сервиса
                 </a>{" "}
                 и условиями
-                <a className="text-[var(--color-blue)]" href="/offer" target="_blank" rel="noopener noreferrer">
+                <a
+                  className="text-[var(--color-blue)]"
+                  href="/offer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {" "}
                   Публичной оферты
                 </a>
@@ -162,10 +187,11 @@ export default function Home() {
               </label>
             </div>
 
-            <button 
-              className={`mb-[50px] w-[281px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)] uppercase ${styles.blink}`} 
-              type="button">
-                Купить
+            <button
+              className={`mb-[50px] w-[281px] h-[76px] bg-[var(--color-orange)] rounded-[60px] text-[var(--background)] text-xl font-medium leading-5 font-[family-name:var(--font-rubik)] uppercase ${styles.blink}`}
+              type="button"
+            >
+              Купить
             </button>
 
             <p className="pb-[107px] text-[var(--color-grey-text)] text-sm font-normal leading-5 font-[family-name:var(--font-root-regular)]">
@@ -177,13 +203,9 @@ export default function Home() {
           </div>
         </div>
       </main>
-      
+
       {isPopupOpened && (
-        <Popup
-          isOpen={isPopupOpened}
-          onClose={togglePopup}
-          data={popupData}
-        />
+        <Popup isOpen={isPopupOpened} onClose={togglePopup} data={popupData} />
       )}
     </>
   );
