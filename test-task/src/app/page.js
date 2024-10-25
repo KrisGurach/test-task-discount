@@ -112,16 +112,17 @@ export default function Home() {
         <Timer onTimerEnd={handleTimerEnd} />
       </header>
       <main className="flex flex-col items-center bg-[var(--background-main)]">
-        <h1 className="pt-[27px] lg:pb-[98px] md:pb-[30px] text-[var(--color-main-text)] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-bold leading-11 font-[family-name:var(--font-rubik)] uppercase tracking-1-percent">
+        <h1 className="pt-[27px] sm:pt-5 sm:pl-5 sm:h-[71px] sm:leading-[26.4px] sm:tracking-[1%] lg:pb-[98px] md:pb-[30px] sm:mb-5 text-[var(--color-main-text)] xl:text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-bold leading-11 font-[family-name:var(--font-rubik)] uppercase tracking-1-percent">
           Выберите подходящий тарифный план
         </h1>
 
-        <div className="flex gap-[79px] lg:gap-[35px] lg:flex-row md:flex-col lg:items-start md:items-center sm:flex-col sm:items-center sm:gap-[20px]">
+        <div className="flex gap-[79px] lg:gap-[35px] lg:flex-row md:flex-col lg:items-start md:items-center sm:flex-col sm:items-center sm:gap-[10px]">
           <div className="xl:w-[434px] md:w-[290px] sm:w-[277px] xl:h-[715px] md:h-[477px] sm:h-[441px] relative">
             <Image
               src={image}
               alt="красивый мужчина в отличной форме"
               objectFit="cover"
+              className="xl:w-[434px] md:w-[290px] sm:w-[277px] xl:h-[715px] md:h-[477px] sm:h-[441px]"
             />
           </div>
 
@@ -158,7 +159,7 @@ export default function Home() {
                 type="checkbox"
                 value=""
                 checked={isChecked}
-                className="w-[24px] h-[24px] text-[var(--color-card)] border-[var(--color-main-text)] checked:text-[var(--color-card)] checked:border-[var(--color-card)] rounded-[5px] pointer"
+                className="w-[24px] h-[24px] text-[var(--color-card)] border-[var(--color-main-text)] checked:text-[var(--color-card)] checked:border-[var(--color-card)] focus:border-transparent focus:ring-0  rounded-[5px] pointer"
                 onClick={handleCheckboxChange}
               />
               <label

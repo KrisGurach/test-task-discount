@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "../animation.module.css";
 
 export default function Timer({ onTimerEnd }) {
-  const initialTime = 1200;
+  const initialTime = 120;
 
   const minuteForms = ["минута", "минуты", "минут"];
   const secondForms = ["секунда", "секунды", "секунд"];
@@ -61,7 +61,7 @@ export default function Timer({ onTimerEnd }) {
   const seconds = timeLeft % 60;
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center sm:py-[10px]">
       <p className="mr-[15px] sm:mr-[10px] py-5 sm:py-2 text-[var(--color-main-text)] text-3xl sm:text-base leading-10 font-[family-name:var(--font-root-bold)]">
         Скидка действует:
       </p>
