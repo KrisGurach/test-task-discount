@@ -5,9 +5,7 @@ import close from "../images/close.svg";
 import PopupCardContainer from "./PopupCardContainer";
 import { useEffect, useState } from "react";
 
-export default function Popup({ isOpen, onClose, data }) {
-  if (!isOpen) return null;
-
+export default function Popup({ onClose, data }) {
   const [selectedPlan, setSelectedPlan] = useState("");
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 

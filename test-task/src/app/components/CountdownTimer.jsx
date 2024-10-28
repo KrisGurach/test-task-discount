@@ -10,8 +10,11 @@ export default function Timer({ onTimerEnd }) {
   const secondForms = ["секунда", "секунды", "секунд"];
 
   const [timeLeft, setTimeLeft] = useState(() => {
-    const savedTime = sessionStorage.getItem("timeLeft");
-    return savedTime ? Number(savedTime) : initialTime;
+    if (typeof window !== "undefined") {
+      const savedTime = sessionStorage.getItem("timeLeft");
+      return savedTime ? Number(savedTime) : initialTime;
+    }
+    return initialTime;
   });
 
   const [isFlashing, setIsFlashing] = useState(false);
@@ -25,7 +28,9 @@ export default function Timer({ onTimerEnd }) {
     const intervalId = setInterval(() => {
       setTimeLeft((prevTime) => {
         const newTime = prevTime - 1;
-        sessionStorage.setItem("timeLeft", newTime);
+        if (typeof window !== "undefined") { 
+          sessionStorage.setItem("timeLeft", newTime);
+        };
         return newTime;
       });
 

@@ -61,9 +61,11 @@ export default function Home() {
   }, [isPopupOpened, data]);
 
   useEffect(() => {
-    const savedCheckboxState = sessionStorage.getItem("isChecked");
-    if (savedCheckboxState !== null) {
-      setIsChecked(JSON.parse(savedCheckboxState));
+    if (typeof window !== "undefined") {
+      const savedCheckboxState = sessionStorage.getItem("isChecked");
+      if (savedCheckboxState !== null) {
+        setIsChecked(JSON.parse(savedCheckboxState));
+      }
     }
   }, []);
 
@@ -99,7 +101,9 @@ export default function Home() {
   const handleCheckboxChange = () => {
     const newCheckedState = !isChecked;
     setIsChecked(newCheckedState);
-    sessionStorage.setItem("isChecked", JSON.stringify(newCheckedState));
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("isChecked", JSON.stringify(newCheckedState));
+    }
   };
 
   const handleSelect = (index) => {
