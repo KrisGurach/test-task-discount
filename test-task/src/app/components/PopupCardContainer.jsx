@@ -51,20 +51,19 @@ export default function PopupCardContainer({ name, price, noDiscountPrice, isSel
           <hr className="sm:hidden border-[1px] border-[var(--color-line)] w-[134px] ml-[14px]" />
 
           <div className="relative">
-            <p className="relative inline-block mt-2 h-[51px] text-[var(--color-main-text)] text-[46px] leading-12 font-[family-name:var(--font-root-bold)]">
+            <div className="relative inline-block mt-2 h-[51px] text-[var(--color-main-text)] text-[46px] leading-12 font-[family-name:var(--font-root-bold)]">
               {price}₽
               <div className="absolute -top-[10px] sm:-top-0 -right-[54px] sm:-right-[44px] w-[50px] h-[50px] sm:w-10 sm:h-10 flex items-center justify-center">
                 <Image
                   src={star}
                   alt="предоставляется скидка"
-                  objectFit="cover"
                   className="absolute"
                 />
                 <p className="relative text-sm text-white leading-4 font-[family-name:var(--font-root-medium)] z-10">
                   {`-${discount} %`}
                 </p>
               </div>
-            </p>
+            </div>
           </div>
 
         </div>

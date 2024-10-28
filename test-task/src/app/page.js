@@ -121,7 +121,7 @@ export default function Home() {
             <Image
               src={image}
               alt="красивый мужчина в отличной форме"
-              objectFit="cover"
+              priority
               className="xl:w-[434px] md:w-[290px] sm:w-[277px] xl:h-[715px] md:h-[477px] sm:h-[441px]"
             />
           </div>
@@ -160,7 +160,7 @@ export default function Home() {
                 value=""
                 checked={isChecked}
                 className="w-[24px] h-[24px] text-[var(--color-card)] border-[var(--color-main-text)] checked:text-[var(--color-card)] checked:border-[var(--color-card)] focus:border-transparent focus:ring-0  rounded-[5px] pointer"
-                onClick={handleCheckboxChange}
+                onChange={handleCheckboxChange}
               />
               <label
                 className="pl-3 text-[var(--color-grey-text)] text-base leading-4 font-[family-name:var(--font-root-regular)]"
