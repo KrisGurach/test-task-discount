@@ -62,6 +62,11 @@ export default function Timer({ onTimerEnd }) {
     return forms[2];
   };
 
+  // Добавлена функция для отображения в формате 00:00
+  const formatTime = (value) => {
+    return String(value).padStart(2, '0');
+  };
+
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
@@ -72,7 +77,7 @@ export default function Timer({ onTimerEnd }) {
       </p>
       <div className="flex flex-col items-center justify-center">
         <p className={`text-[var(--color-card)] text-6xl sm:text-[40px] leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
-          {minutes}
+          {formatTime(minutes)}
         </p>
         <p className="text-[var(--color-grey-text)] text-base sm:text-sm leading-5 font-[family-name:var(--font-root-bold)]">
           {getDeclension(minutes, minuteForms)}{" "}
@@ -81,7 +86,7 @@ export default function Timer({ onTimerEnd }) {
       <span className={`mx-3 sm:mx-1 pb-2 text-[var(--color-card)] text-3xl sm:text-xl font-[family-name:var(--font-root-bold)] opacity-50 ${isFlashing ? styles.flashing : ""}`}>:</span>
       <div className="flex flex-col items-center justify-center">
         <p className={`text-[var(--color-card)] text-6xl sm:text-[40px] leading-15 font-[family-name:var(--font-neue)] ${isFlashing ? styles.flashing : ""}`}>
-          {seconds}
+          {formatTime(seconds)}
         </p>
         <p className="text-[var(--color-grey-text)] text-base sm:text-sm leading-5 font-[family-name:var(--font-root-bold)]">
           {getDeclension(seconds, secondForms)}
