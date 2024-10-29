@@ -108,7 +108,7 @@ export default function CardContainer({
         <p
           className={`max-w-[161px] pt-[25px] text-[var(--color-add-text)] text-center text-base sm:text-sm leading-5 font-[family-name:var(--font-root-medium)]
             sm:absolute sm:top-[70px] sm:left-2 sm:pt-0 sm:pl-5 sm:max-w-[124px] sm:text-start
-            ${isLast ? "pt-[37px] text-start" : "mt-[18px]"}`}
+            ${isLast ? "pt-[37px] sm:mt-[18px] text-start" : "mt-[18px]"}`}
         >
           {isLast ? currentPhrase : phrases[index]}
         </p>
